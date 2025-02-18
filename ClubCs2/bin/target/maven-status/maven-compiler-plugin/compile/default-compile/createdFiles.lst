@@ -1,0 +1,12 @@
+app\ClubApplication.class
+app\ports\PartnerPort.class
+app\domain\models\InvoiceHeader.class
+app\domain\services\AdminService.class
+app\ports\UserPort.class
+app\domain\models\InvoiceDetail.class
+app\domain\models\Partner.class
+app\domain\models\Person.class
+app\domain\models\User.class
+app\ports\InvoiceHeaderPort.class
+app\ports\PersonPort.class
+app\domain\models\Guest.class
