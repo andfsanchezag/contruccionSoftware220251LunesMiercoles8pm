@@ -5,7 +5,7 @@
 
 package app.ports;
 
-import app.domain.models.Partner;
+import app.domain.models.Person;
 import app.domain.models.User;
 
 /**
@@ -15,7 +15,7 @@ import app.domain.models.User;
 public interface UserPort {
     public boolean existUserName(String userName);
 
-    public void saveUser(Partner partner);
+    public void saveUser(User user);
 
-    public User findByPersonId(long personId);
+    public User findByPersonId(Person person);
 }

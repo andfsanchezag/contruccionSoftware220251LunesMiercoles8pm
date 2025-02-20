@@ -51,7 +51,7 @@ public class AdminService {
         if (person==null){
             throw new Exception("no existe una persona con esa cedula");
         }
-        User user=userPort.findByPersonId(person.getPersonId());
+        User user=userPort.findByPersonId(person);
         if (user==null){
             throw new Exception("no existe un usuario asociado");
         }

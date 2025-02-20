@@ -14,7 +14,7 @@ public class Partner extends User {
 	private double amount;
 	private String type;
 	private Timestamp dateCreated;
-        private double totalAmountPayed;
+    private double totalAmountPayed;
 	
 	public Partner(long personId, long document, String name, long cellPhone, long userId, String userName,
 			String password, String role, long partnerId, double amount, String type, Timestamp dateCreated) {
