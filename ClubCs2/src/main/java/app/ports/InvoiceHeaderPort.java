@@ -22,4 +22,6 @@ public interface InvoiceHeaderPort {
     public List<InvoiceHeader> getInvoicesByPerson(Person person);
 
     public double getTotalAmountPayed(Partner partner);
+
+	public void save(InvoiceHeader invoiceHeader);
 }
