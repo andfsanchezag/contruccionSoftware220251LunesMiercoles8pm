@@ -1,5 +1,8 @@
 package app.adapters.users;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import app.adapters.persons.entity.PersonEntity;
 import app.adapters.users.entity.UserEntity;
 import app.adapters.users.repository.UserRepository;
@@ -7,8 +10,15 @@ import app.domain.models.Partner;
 import app.domain.models.Person;
 import app.domain.models.User;
 import app.ports.UserPort;
-
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+@Setter
+@Getter
+@NoArgsConstructor
+@Service
 public class UserAdapter implements UserPort {
+	@Autowired
 	private UserRepository userRepository;
 
 	@Override
@@ -25,7 +35,7 @@ public class UserAdapter implements UserPort {
 
 	@Override
 	public User findByPersonId(Person person) {
-		PersonEntity personEntity = personEntityAdapter(person);
+		PersonEntity personEntity = personAdapter(person);
 		UserEntity userEntity = userRepository.findByPersonId(personEntity);
 		User user = userAdapter(userEntity);
 		return user;
@@ -36,10 +46,10 @@ public class UserAdapter implements UserPort {
 			return null;
 		}
 		User user = new User();
-		user.setPersonId(userEntity.getPerson().getPersonId());
-		user.setDocument(userEntity.getPerson().getDocument());
-		user.setName(userEntity.getPerson().getName());
-		user.setCellPhone(userEntity.getPerson().getCellPhone());
+		user.setPersonId(userEntity.getPersonId().getPersonId());
+		user.setDocument(userEntity.getPersonId().getDocument());
+		user.setName(userEntity.getPersonId().getName());
+		user.setCellPhone(userEntity.getPersonId().getCellPhone());
 		user.setUserName(userEntity.getUserName());
 		user.setPassword(userEntity.getPassword());
 		user.setRole(userEntity.getRole());
@@ -49,21 +59,21 @@ public class UserAdapter implements UserPort {
 	}
 
 	private UserEntity userEntityAdapter(User user) {
-		PersonEntity personEntity = personEntityAdapter(user);
+		PersonEntity personEntity = personAdapter(user);
 		UserEntity userEntity = new UserEntity();
-		userEntity.setPerson(personEntity);
+		userEntity.setPersonId(personEntity);
 		userEntity.setUserName(user.getUserName());
 		userEntity.setPassword(user.getPassword());
 		userEntity.setRole(user.getRole());
 		return userEntity;
 	}
 
-	private PersonEntity personEntityAdapter(Person person) {
+	private PersonEntity personAdapter(Person person) {
 		PersonEntity personEntity = new PersonEntity();
-		personEntity.setPersonId(user.getPersonId());
-		personEntity.setDocument(user.getDocument());
-		personEntity.setName(user.getName());
-		personEntity.setCellPhone(user.getCellPhone());
+		personEntity.setPersonId(person.getPersonId());
+		personEntity.setDocument(person.getDocument());
+		personEntity.setName(person.getName());
+		personEntity.setCellPhone(person.getCellPhone());
 		return personEntity;
 	}
 

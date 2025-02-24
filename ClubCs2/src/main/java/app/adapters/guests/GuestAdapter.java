@@ -1,5 +1,8 @@
 package app.adapters.guests;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import app.adapters.guests.entity.GuestEntity;
 import app.adapters.guests.repository.GuestRepository;
 import app.adapters.partners.entity.PartnerEntity;
@@ -17,8 +20,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Service
 public class GuestAdapter implements GuestPort {
-
+	@Autowired
 	private GuestRepository guestRepository;
 
 	@Override
@@ -79,14 +83,15 @@ public class GuestAdapter implements GuestPort {
 		guest.setName(guestEntity.getUserId().getPersonId().getName());
 		guest.setDocument(guestEntity.getUserId().getPersonId().getDocument());
 		guest.setPersonId(guestEntity.getUserId().getPersonId().getPersonId());
-		guest.setCellphone(guestEntity.getUserId().getPersonId().getCellPhone());
+		guest.setCellPhone(guestEntity.getUserId().getPersonId().getCellPhone());
 		guest.setUserId(guestEntity.getUserId().getUserId());
 		guest.setUserName(guestEntity.getUserId().getUserName());
 		guest.setPassword(guestEntity.getUserId().getPassword());
 		guest.setRole(guestEntity.getUserId().getRole());
 		guest.setGuestId(guestEntity.getGuestId());
 		guest.setStatus(guestEntity.isStatus());
-		guest.setPartner(partnerAdapter(guestEntity.getPartner()));
+		guest.setPartner(partnerAdapter(guestEntity.getPartnerId()));
+		return guest;
 	}
 	
 	private Partner partnerAdapter(PartnerEntity partnerEntity) {
@@ -94,7 +99,7 @@ public class GuestAdapter implements GuestPort {
 		partner.setName(partnerEntity.getUserId().getPersonId().getName());
 		partner.setDocument(partnerEntity.getUserId().getPersonId().getDocument());
 		partner.setPersonId(partnerEntity.getUserId().getPersonId().getPersonId());
-		partner.setCellphone(partnerEntity.getUserId().getPersonId().getCellPhone());
+		partner.setCellPhone(partnerEntity.getUserId().getPersonId().getCellPhone());
 		partner.setUserId(partnerEntity.getUserId().getUserId());
 		partner.setUserName(partnerEntity.getUserId().getUserName());
 		partner.setPassword(partnerEntity.getUserId().getPassword());

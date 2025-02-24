@@ -16,16 +16,5 @@ public class InvoiceHeader {
 	 private Date dateCreated;
 	 private double amount;
 	 private boolean status;
-	public InvoiceHeader(long invoiceHeaderId, Person person, Partner partner, Date dateCreated, double amount,
-			boolean status) {
-		super();
-		this.invoiceHeaderId = invoiceHeaderId;
-		this.person = person;
-		this.partner = partner;
-		this.dateCreated = dateCreated;
-		this.amount = amount;
-		this.status = status;
-	}
-	 
-	 
+ 
 }

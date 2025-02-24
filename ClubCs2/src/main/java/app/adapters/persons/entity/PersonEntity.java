@@ -15,12 +15,6 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 public class PersonEntity {
-	public PersonEntity(Person person) {
-		this.personId=person.getPersonId();
-		this.document=person.getDocument();
-		this.name=person.getName();
-		this.cellPhone=person.getCellPhone();
-	}
 	@Id
 	@Column(name = "id")
 	private long personId;

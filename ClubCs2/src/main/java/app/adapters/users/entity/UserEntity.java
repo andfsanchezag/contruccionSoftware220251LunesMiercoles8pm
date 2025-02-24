@@ -25,7 +25,7 @@ public class UserEntity {
 	private long userId;
 	@JoinColumn(name="person_id")
 	@OneToOne
-	private PersonEntity person;
+	private PersonEntity personId;
 	@Column(name="user_name")
 	private String userName;
 	@Column(name="password")

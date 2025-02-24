@@ -13,19 +13,34 @@ import app.ports.InvoiceHeaderPort;
 import app.ports.PartnerPort;
 import app.ports.PersonPort;
 import app.ports.UserPort;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author ESTUDIANTE
  */
+@Setter
+@Getter
+@NoArgsConstructor
+@Service
 public class AdminService {
-    
+   
+    @Autowired
     private PersonPort personPort;
+    @Autowired
     private UserPort userPort;
+    @Autowired
     private PartnerPort partnerPort;
+    @Autowired
     private InvoiceHeaderPort invoiceHeaderPort;
     
     public void registerPartner(Partner partner)throws Exception{
