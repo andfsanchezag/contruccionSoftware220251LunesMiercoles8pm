@@ -11,9 +11,6 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "person")
-@Setter
-@Getter
-@NoArgsConstructor
 public class PersonEntity {
 	@Id
 	@Column(name = "id")
@@ -24,4 +21,30 @@ public class PersonEntity {
 	private String name;
 	@Column(name = "cell_phone")
 	private long cellPhone;
+	public long getPersonId() {
+		return personId;
+	}
+	public void setPersonId(long personId) {
+		this.personId = personId;
+	}
+	public long getDocument() {
+		return document;
+	}
+	public void setDocument(long document) {
+		this.document = document;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public long getCellPhone() {
+		return cellPhone;
+	}
+	public void setCellPhone(long cellPhone) {
+		this.cellPhone = cellPhone;
+	}
+	
+	
 }

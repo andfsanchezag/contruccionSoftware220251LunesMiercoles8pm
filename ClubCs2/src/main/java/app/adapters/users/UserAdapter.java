@@ -40,6 +40,16 @@ public class UserAdapter implements UserPort {
 		User user = userAdapter(userEntity);
 		return user;
 	}
+	
+	@Override
+	public User findByUserName(User user) {
+		UserEntity userEntity = userRepository.findByUserName(user.getUserName());
+		if (userEntity == null){
+			return null;
+		}
+		return userAdapter(userEntity);
+	}
+
 
 	private User userAdapter(UserEntity userEntity) {
 		if (userEntity == null) {
@@ -77,4 +87,5 @@ public class UserAdapter implements UserPort {
 		return personEntity;
 	}
 
+	
 }

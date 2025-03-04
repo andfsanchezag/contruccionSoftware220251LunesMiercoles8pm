@@ -7,6 +7,7 @@ import app.adapters.inputs.utils.PersonValidator;
 import app.adapters.inputs.utils.UserValidator;
 import app.adapters.inputs.utils.Utils;
 import app.domain.models.Partner;
+import app.ports.InputPort;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +16,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @Component
-public class AdminInput {
+public class AdminInput  implements InputPort{
 	@Autowired
 	private PersonValidator personValidator;
 	@Autowired

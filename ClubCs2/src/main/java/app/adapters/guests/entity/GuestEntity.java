@@ -16,10 +16,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-@Entity
-@Setter
-@Getter
-@NoArgsConstructor
 @Table(name="guest")
 public class GuestEntity {
 	@Id
@@ -34,4 +30,30 @@ public class GuestEntity {
 	private PartnerEntity partnerId;
 	@Column(name = "status")
 	private boolean status;
+	public long getGuestId() {
+		return guestId;
+	}
+	public void setGuestId(long guestId) {
+		this.guestId = guestId;
+	}
+	public UserEntity getUserId() {
+		return userId;
+	}
+	public void setUserId(UserEntity userId) {
+		this.userId = userId;
+	}
+	public PartnerEntity getPartnerId() {
+		return partnerId;
+	}
+	public void setPartnerId(PartnerEntity partnerId) {
+		this.partnerId = partnerId;
+	}
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	
+	
 }

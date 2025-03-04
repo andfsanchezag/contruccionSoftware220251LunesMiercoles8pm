@@ -16,9 +16,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Setter
-@Getter
-@NoArgsConstructor
 @Table(name="partner")
 public class PartnerEntity {
 	@Id
@@ -34,5 +31,36 @@ public class PartnerEntity {
 	@JoinColumn(name="user_id")
 	@OneToOne
     private UserEntity userId;
+	public long getPartnerId() {
+		return partnerId;
+	}
+	public void setPartnerId(long partnerId) {
+		this.partnerId = partnerId;
+	}
+	public double getAmount() {
+		return amount;
+	}
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public Timestamp getDateCreated() {
+		return dateCreated;
+	}
+	public void setDateCreated(Timestamp dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+	public UserEntity getUserId() {
+		return userId;
+	}
+	public void setUserId(UserEntity userId) {
+		this.userId = userId;
+	}
 
+	
 }
