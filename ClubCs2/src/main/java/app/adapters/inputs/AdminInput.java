@@ -7,6 +7,7 @@ import app.adapters.inputs.utils.PersonValidator;
 import app.adapters.inputs.utils.UserValidator;
 import app.adapters.inputs.utils.Utils;
 import app.domain.models.Partner;
+import app.domain.services.AdminService;
 import app.ports.InputPort;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,8 @@ public class AdminInput  implements InputPort{
 	private PersonValidator personValidator;
 	@Autowired
 	private UserValidator userValidator;
+	@Autowired
+	private AdminService adminService;
 
 	private final String MENU = "Ingrese la opcion:"
 			+ " \n 1. para crear Socios."
@@ -64,6 +67,6 @@ public class AdminInput  implements InputPort{
 		partner.setUserName(userName);
 		partner.setPassword(password);
 		partner.setRole("partner");
-		
+		adminService.registerPartner(partner);
 	}
 }

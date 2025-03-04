@@ -20,7 +20,7 @@ import lombok.Setter;
 public class PartnerEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name= "guest_id")
+	@Column(name= "id")
     private long partnerId;
 	@Column(name="amount")
     private double amount;
@@ -30,6 +30,7 @@ public class PartnerEntity {
     private Timestamp dateCreated;
 	@JoinColumn(name="user_id")
 	@OneToOne
+	
     private UserEntity userId;
 	public long getPartnerId() {
 		return partnerId;

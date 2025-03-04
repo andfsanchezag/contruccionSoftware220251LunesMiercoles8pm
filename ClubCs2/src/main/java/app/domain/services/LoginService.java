@@ -5,7 +5,13 @@ import org.springframework.stereotype.Service;
 
 import app.domain.models.User;
 import app.ports.UserPort;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Setter
+@Getter
+@NoArgsConstructor
 @Service
 public class LoginService {
 	
@@ -14,10 +20,10 @@ public class LoginService {
 
 	public User login(User user) throws Exception {
 		User userValidate= userPort.findByUserName(user);
-		if(user== null) {
+		if(userValidate== null) {
 			throw new Exception("Usuario o contraseña invalido");
 		}
-		if(user.getPassword().equals(userValidate.getPassword())) {
+		if(!user.getPassword().equals(userValidate.getPassword())) {
 			throw new Exception("Usuario o contraseña invalido");
 		}
 		return userValidate;

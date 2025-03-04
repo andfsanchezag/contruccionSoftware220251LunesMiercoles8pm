@@ -4,12 +4,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import app.adapters.inputs.utils.UserValidator;
 import app.adapters.inputs.utils.Utils;
 import app.domain.models.User;
+import app.domain.services.LoginService;
 import app.ports.InputPort;
-
+import lombok.Getter;
+import lombok.Setter;
+@Setter
+@Getter
+@Component
 public class LoginInput implements InputPort {
 	private Map<String, InputPort> inputs;
 	@Autowired
@@ -20,7 +26,9 @@ public class LoginInput implements InputPort {
 	private PartnerInput partnerInput;
 	@Autowired
 	private UserValidator userValidator;
-	private final String MENU = "Ingrese la opcion que desea:/n 1. iniciar sesion /n 2. salir";
+	@Autowired
+	private LoginService loginService;
+	private final String MENU = "Ingrese la opcion que desea:\n 1. iniciar sesion \n 2. salir";
 
 	public LoginInput(AdminInput adminInput, GuestInput guestInput, PartnerInput partnerInput) {
 		super();
@@ -57,9 +65,12 @@ public class LoginInput implements InputPort {
 		try {
 			System.out.println("ingrese su usuario");
 			String userName = userValidator.userNameValidator(Utils.getReader().nextLine());
-			System.out.println("ingrese su usuario");
+			System.out.println("ingrese su contraseña");
 			String password = userValidator.passwordValidator(Utils.getReader().nextLine());
 			User user = new User();
+			user.setUserName(userName);
+			user.setPassword(password);
+			user = loginService.login(user);
 			InputPort inputPort = inputs.get(user.getRole());
 			inputPort.menu();
 		} catch (Exception e) {
