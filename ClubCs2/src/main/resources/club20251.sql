@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 06-03-2025 a las 01:40:34
+-- Tiempo de generación: 06-03-2025 a las 01:43:05
 -- Versión del servidor: 8.2.0
 -- Versión de PHP: 8.2.13
 
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `club20251`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `person`
+--
+
+DROP TABLE IF EXISTS `person`;
+CREATE TABLE IF NOT EXISTS `person` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(250) NOT NULL,
+  `cell_phone` bigint NOT NULL,
+  `document` bigint NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `person`
+--
+
+INSERT INTO `person` (`id`, `name`, `cell_phone`, `document`) VALUES
+(1, 'Rogelio', 75314, 751569),
+(2, 'Lucrecia', 123, 123);
 
 -- --------------------------------------------------------
 
