@@ -17,7 +17,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @Component
-public class AdminInput  implements InputPort{
+public class AdminInput implements InputPort {
 	@Autowired
 	private PersonValidator personValidator;
 	@Autowired
@@ -25,31 +25,40 @@ public class AdminInput  implements InputPort{
 	@Autowired
 	private AdminService adminService;
 
-	private final String MENU = "Ingrese la opcion:"
-			+ " \n 1. para crear Socios."
-			+ " \n 2. ver facturas del club."
-			+ " \n 3. ver facturas de un socio."
-			+ " \n 4. ver facturas de una persona."
-			+ " \n 5. promover socios.";
-	
+	private final String MENU = "Ingrese la opcion:" + " \n 1. para crear Socios." + " \n 2. ver facturas del club."
+			+ " \n 3. ver facturas de un socio." + " \n 4. ver facturas de una persona." + " \n 5. promover socios."+ " \n 6. cerrar sesion.";
+
 	public void menu() {
-		System.out.println(MENU);
-		String option = Utils.getReader().nextLine();
-		switch (option){
-		case "1":{
-			try {
-				this.createPartner();
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
-			break;
-		}
-		default :
-			System.out.println("opcion no valida");
+		boolean sesion = true;
+		while (sesion) {
+			sesion = options();
 		}
 	}
 	
-	private void createPartner()  throws Exception{
+	private boolean options() {
+		try {
+			System.out.println(MENU);
+			String option = Utils.getReader().nextLine();
+			switch (option) {
+			case "1": {
+					this.createPartner();
+					return true;
+			}
+			case "6" :{
+				System.out.println("Se ha cerrado sesion");
+				return false;
+			}
+			default:
+				System.out.println("opcion no valida");
+				return true;
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return true;
+		}
+	}
+
+	private void createPartner() throws Exception {
 		System.out.println("ingrese el nombre del socio");
 		String name = personValidator.nameValidator(Utils.getReader().nextLine());
 		System.out.println("ingrese el documento del socio");

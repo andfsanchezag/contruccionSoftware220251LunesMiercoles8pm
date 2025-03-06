@@ -13,6 +13,8 @@ import app.domain.services.LoginService;
 import app.ports.InputPort;
 import lombok.Getter;
 import lombok.Setter;
+
+
 @Setter
 @Getter
 @Component
@@ -35,7 +37,7 @@ public class LoginInput implements InputPort {
 		this.adminInput = adminInput;
 		this.guestInput = guestInput;
 		this.partnerInput = partnerInput;
-		this.inputs=new HashMap<String,InputPort>();
+		this.inputs = new HashMap<String, InputPort>();
 		inputs.put("partner", partnerInput);
 		inputs.put("guest", guestInput);
 		inputs.put("admin", adminInput);
@@ -44,20 +46,33 @@ public class LoginInput implements InputPort {
 
 	@Override
 	public void menu() throws Exception {
-		System.out.println(MENU);
-		String option = Utils.getReader().nextLine();
-		switch (option) {
-		case "1": {
-			this.login();
+		boolean sesion = true;
+		for (; sesion;) {
+			sesion = options();
 		}
-		case "2": {
-			System.out.println("Hasta una proxima ocación");
-			return;
-		}
-		default: {
-			System.out.println("ha elegido una opción invalida, se detiene la ejecucion");
-			return;
-		}
+	}
+
+	private boolean options() throws Exception {
+		try {
+			System.out.println(MENU);
+			String option = Utils.getReader().nextLine();
+			switch (option) {
+			case "1": {
+				this.login();
+				return true;
+			}
+			case "2": {
+				System.out.println("Hasta una proxima ocación");
+				return false;
+			}
+			default: {
+				System.out.println("ha elegido una opción invalida");
+				return true;
+			}
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return true;
 		}
 	}
 
