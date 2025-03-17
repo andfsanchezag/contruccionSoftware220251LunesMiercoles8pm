@@ -5,6 +5,7 @@
 
 package app.ports;
 
+import app.domain.models.Guest;
 import app.domain.models.InvoiceHeader;
 import app.domain.models.Partner;
 import app.domain.models.Person;
@@ -24,4 +25,6 @@ public interface InvoiceHeaderPort {
     public double getTotalAmountPayed(Partner partner);
 
 	public void save(InvoiceHeader invoiceHeader);
+
+	public List<InvoiceHeader> findByPersonId(Guest guest);
 }

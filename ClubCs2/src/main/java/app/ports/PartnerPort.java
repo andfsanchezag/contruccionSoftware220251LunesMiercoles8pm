@@ -6,6 +6,8 @@
 package app.ports;
 
 import app.domain.models.Partner;
+import app.domain.models.User;
+
 import java.util.List;
 
 /**
@@ -24,5 +26,7 @@ public interface PartnerPort {
     public void updateStatusToRegular();
 
     public void updateStatus(Partner get);
+
+	public Partner findByUserId(User user);
 
 }

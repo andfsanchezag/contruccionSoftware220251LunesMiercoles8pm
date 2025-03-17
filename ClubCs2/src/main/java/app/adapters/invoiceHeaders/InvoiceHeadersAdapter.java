@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import app.domain.models.Guest;
 import app.domain.models.InvoiceHeader;
 import app.domain.models.Partner;
 import app.domain.models.Person;
@@ -40,6 +41,12 @@ public class InvoiceHeadersAdapter implements InvoiceHeaderPort {
 	public void save(InvoiceHeader invoiceHeader) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<InvoiceHeader> findByPersonId(Guest guest) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

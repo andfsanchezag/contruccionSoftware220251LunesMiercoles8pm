@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import app.adapters.partners.entity.PartnerEntity;
 import app.adapters.partners.repository.PartnerRepository;
 import app.domain.models.Partner;
+import app.domain.models.User;
 import app.ports.PartnerPort;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -55,6 +56,12 @@ public class PartnerAdapter implements PartnerPort {
 	public void updateStatus(Partner get) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Partner findByUserId(User user) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

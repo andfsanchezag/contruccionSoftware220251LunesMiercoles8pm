@@ -1,6 +1,7 @@
 package app.domain.services;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +10,13 @@ import org.springframework.stereotype.Service;
 import app.domain.models.Guest;
 import app.domain.models.InvoiceDetail;
 import app.domain.models.InvoiceHeader;
+import app.domain.models.Partner;
 import app.domain.models.Person;
 import app.domain.models.User;
 import app.ports.GuestPort;
 import app.ports.InvoiceDetailPort;
 import app.ports.InvoiceHeaderPort;
+import app.ports.PartnerPort;
 import app.ports.PersonPort;
 import app.ports.UserPort;
 import lombok.Getter;
@@ -35,6 +38,8 @@ public class GuestService {
 	private InvoiceHeaderPort invoiceHeaderPort;
 	@Autowired
 	private InvoiceDetailPort invoiceDetailPort;
+	@Autowired
+	private PartnerPort partnerPort;
 	
 	public void guestConsumption(Person person, List<InvoiceDetail> invoiceDetails) throws Exception {
 		person = personPort.findByDocument(person.getDocument());
@@ -70,6 +75,31 @@ public class GuestService {
 		for(InvoiceDetail invoiceDetail: invoiceDetails) {
 			invoiceDetailPort.save(invoiceDetail);
 		} 	
+	}
+	
+	public void convertToPartner(Guest guest) throws Exception {
+		List<InvoiceHeader> invoices = invoiceHeaderPort.findByPersonId(guest);
+		for(InvoiceHeader invoice : invoices) {
+			if(invoice.isStatus()) {
+				throw new Exception("el invitado tiene facturas pendientes a su nombre");
+			}
+		}
+		guest.setStatus(false);
+		Partner partner = new Partner();
+		partner.setPersonId(guest.getPersonId());
+		partner.setName(guest.getName());
+		partner.setCellPhone(guest.getCellPhone());
+		partner.setDocument(guest.getDocument());
+		partner.setPassword(guest.getPassword());
+		partner.setUserId(guest.getUserId());
+		partner.setUserName(guest.getUserName());
+		partner.setRole("partner");
+		partner.setAmount(50000);
+		partner.setType("regular");
+		partner.setDateCreated(new Timestamp(System.currentTimeMillis()));
+		guestPort.save(guest);
+		partnerPort.savePartner(partner);	
+		
 	}
 
 }
