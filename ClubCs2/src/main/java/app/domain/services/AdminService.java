@@ -5,6 +5,15 @@
 
 package app.domain.services;
 
+import java.sql.Timestamp;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import app.domain.models.InvoiceHeader;
 import app.domain.models.Partner;
 import app.domain.models.Person;
@@ -16,13 +25,6 @@ import app.ports.UserPort;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  *
@@ -53,6 +55,7 @@ public class AdminService {
         partner.setRole("partner");
         partner.setAmount(50000);
         partner.setType("regular");
+        partner.setDateCreated(new Timestamp(System.currentTimeMillis()));
         personPort.savePerson(partner);
         userPort.saveUser(partner);
         partnerPort.savePartner(partner);
@@ -85,7 +88,7 @@ public class AdminService {
         if(countVip>= 5){
             throw new Exception("no hay cupos para VIP");
         }
-        List<Partner> partners = partnerPort.getByStatusPending();
+        List<Partner> partners = partnerPort.getByTypePending();
         if(partners.isEmpty()){
          throw new Exception("no socios solicitando promocion para VIP");
         }
@@ -94,13 +97,14 @@ public class AdminService {
             partner.setTotalAmountPayed(total);   
         }
         List<Partner> partnerSorted = partners.stream().sorted(Comparator.comparing(Partner::getTotalAmountPayed)).collect(Collectors.toList());
+        Collections.reverse(partnerSorted);
         for(int i=0; i<partnerSorted.size();i++){
             int newCountVip = partnerPort.countVip();
             if(newCountVip>= 5){
-                partnerPort.updateStatusToRegular();
+                partnerPort.updateTypeToRegular();
             throw new Exception("no hay mas cupos para VIP");
             }
-            partnerPort.updateStatus(partnerSorted.get(i));
+            partnerPort.updateType(partnerSorted.get(i));
         }
     
     }

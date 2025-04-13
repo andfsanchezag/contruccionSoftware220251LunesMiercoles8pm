@@ -21,12 +21,12 @@ public interface PartnerPort {
 
     public int countVip();
 
-    public List<Partner> getByStatusPending();
-
-    public void updateStatusToRegular();
-
-    public void updateStatus(Partner get);
+    public List<Partner> getByTypePending();
 
 	public Partner findByUserId(User user);
+
+	void updateTypeToRegular();
+
+	void updateType(Partner partner);
 
 }

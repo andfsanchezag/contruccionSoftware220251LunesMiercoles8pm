@@ -116,9 +116,14 @@ public class GuestAdapter implements GuestPort {
 
 	@Override
 	public List<Guest> findByPartnerIdAndStatusActive(Partner partner) {
-		// TODO Auto-generated method stub
-		return null;
+	    PartnerEntity partnerEntity = partnerAdapter(partner);
+	    List<GuestEntity> guestEntities = guestRepository.findByPartnerIdAndStatusTrue(partnerEntity);
+	    
+	    return guestEntities.stream()
+	            .map(this::guestAdapter)
+	            .toList();
 	}
+
 
 
 }

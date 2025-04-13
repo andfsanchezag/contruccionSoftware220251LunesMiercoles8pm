@@ -87,11 +87,16 @@ public class LoginInput implements InputPort {
 			user.setPassword(password);
 			user = loginService.login(user);
 			InputPort inputPort = inputs.get(user.getRole());
+			inputPort.setUser(user);
 			inputPort.menu();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
+	}
+
+	@Override
+	public void setUser(User user) {		
 	}
 
 }
