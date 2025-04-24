@@ -1,4 +1,4 @@
-package app.adapters.inputs.utils;
+package app.adapters.rest.utils;
 
 import java.util.Scanner;
 

@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import app.Exceptions.BusinessException;
 import app.domain.models.InvoiceHeader;
 import app.domain.models.Partner;
 import app.domain.models.Person;
@@ -47,10 +48,10 @@ public class AdminService {
     
     public void registerPartner(Partner partner)throws Exception{
         if (personPort.existPerson(partner.getDocument())){
-            throw new Exception("ya existe una persona con esa cedula");
+            throw new BusinessException("ya existe una persona con esa cedula");
         }
         if (userPort.existUserName(partner.getUserName())){
-            throw new Exception("ya existe ese username registrado");
+            throw new BusinessException("ya existe ese username registrado");
         }
         partner.setRole("partner");
         partner.setAmount(50000);

@@ -1,13 +1,15 @@
-package app.adapters.inputs.utils;
+package app.adapters.rest.utils;
 
 import org.springframework.stereotype.Component;
+
+import app.Exceptions.InputsException;
 
 @Component
 public class SimpleValidator {
 
     public String stringValidator(String value, String element) throws Exception {
         if (value == null || value.trim().isEmpty()) {
-            throw new Exception(element + " no tiene un valor válido");
+            throw new InputsException(element + " no tiene un valor válido");
         }
         return value.trim();
     }
@@ -16,7 +18,7 @@ public class SimpleValidator {
         try {
             return Long.parseLong(stringValidator(value, element));
         } catch (NumberFormatException e) {
-            throw new Exception(element + " debe ser un valor numérico entero");
+            throw new InputsException(element + " debe ser un valor numérico entero");
         }
     }
 
@@ -24,7 +26,7 @@ public class SimpleValidator {
         try {
             return Integer.parseInt(stringValidator(value, element));
         } catch (NumberFormatException e) {
-            throw new Exception(element + " debe ser un valor numérico entero");
+            throw new InputsException(element + " debe ser un valor numérico entero");
         }
     }
 
@@ -32,7 +34,7 @@ public class SimpleValidator {
         try {
             return Double.parseDouble(stringValidator(value, element));
         } catch (NumberFormatException e) {
-            throw new Exception(element + " debe ser un valor numérico decimal");
+            throw new InputsException(element + " debe ser un valor numérico decimal");
         }
     }
 }
