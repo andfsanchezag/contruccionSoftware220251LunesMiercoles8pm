@@ -77,6 +77,7 @@ public class GuestAdapter implements GuestPort {
 		partnerEntity.setAmount(partner.getAmount());
 		partnerEntity.setType(partner.getType());
 		partnerEntity.setDateCreated(partner.getDateCreated());
+		partnerEntity.setPartnerId(partner.getPartnerId());
 		return partnerEntity;
 	}
 	

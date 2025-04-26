@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import app.Exceptions.BusinessException;
 import app.domain.models.Guest;
 import app.domain.models.InvoiceDetail;
 import app.domain.models.InvoiceHeader;
@@ -77,23 +78,24 @@ public class PartnerService {
 
 	public void registerPartner(Guest guest) throws Exception {
 		if (personPort.existPerson(guest.getDocument())) {
-			throw new Exception("ya existe una persona con esa cedula");
+			throw new BusinessException("ya existe una persona con esa cedula");
 		}
 		if (userPort.existUserName(guest.getUserName())) {
-			throw new Exception("ya existe ese username registrado");
+			throw new BusinessException("ya existe ese username registrado");
 		}
 		Person person = personPort.findByDocument(guest.getPartner().getDocument());
 		if (person == null) {
-			throw new Exception("no existe la persona con esa cedula.");
+			throw new BusinessException("no existe la persona con esa cedula.");
 		}
 		User user = userPort.findByPersonId(person);
 		if (user == null) {
-			throw new Exception("no existe un usuario con esa cedula.");
+			throw new BusinessException("no existe un usuario con esa cedula.");
 		}
 		Partner partner = partnerPort.findByUserId(user);
 		if (partner == null) {
-			throw new Exception("no existe un socio con esa cedula.");
+			throw new BusinessException("no existe un socio con esa cedula.");
 		}
+		guest.setRole("guest");
 		guest.setPartner(partner);
 		personPort.savePerson(guest);
 		userPort.saveUser(guest);

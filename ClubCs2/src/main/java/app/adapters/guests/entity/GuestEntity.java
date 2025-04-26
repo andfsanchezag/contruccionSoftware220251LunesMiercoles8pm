@@ -20,7 +20,7 @@ import lombok.Setter;
 public class GuestEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name= "guest_id")
+	@Column(name= "id")
 	private long guestId;
 	@JoinColumn(name="user_id")
 	@OneToOne

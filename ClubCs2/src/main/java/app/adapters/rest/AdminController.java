@@ -38,13 +38,20 @@ public class AdminController {
 	}
 	
 	@PostMapping("/partner")
-	public ResponseEntity createPartner(@RequestBody PartnerRequest request) throws Exception{
+	public ResponseEntity createPartner(@RequestBody PartnerRequest request){
 		try {
+		System.out.println(request.toString());
 		Partner partner = new Partner();
 		partner.setName(personValidator.nameValidator(request.getName()));
 		partner.setUserName(userValidator.userNameValidator(request.getUserName()));
 		partner.setPassword(userValidator.passwordValidator(request.getPassword()));
+		if(request.getCellphone()==0) {
+			throw new InputsException("el numero de celular no puede ser cero");
+		}
 		partner.setCellPhone(request.getCellphone());
+		if(request.getDocument()==0) {
+			throw new InputsException("el numero de documento no puede ser cero");
+		}
 		partner.setDocument(request.getDocument());
 		adminservice.registerPartner(partner);
 		return new ResponseEntity("se ha creado el socio",HttpStatus.OK);
