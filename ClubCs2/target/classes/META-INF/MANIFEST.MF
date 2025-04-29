@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Build-Jdk-Spec: 23
+Implementation-Title: cs2
+Implementation-Version: 0.0.1-SNAPSHOT
+Main-Class: app.ClubApplication
+Created-By: Maven Integration for Eclipse
+

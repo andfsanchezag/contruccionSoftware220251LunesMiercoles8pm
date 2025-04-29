@@ -105,21 +105,21 @@ public class PartnerService {
 	public void activateGuest(Person person) throws Exception {
 		person = personPort.findByDocument(person.getDocument());
 		if (person==null) {
-			throw new Exception("no existe la persona con esa cedula.");
+			throw new BusinessException("no existe la persona con esa cedula.");
 		}
 		User user = userPort.findByPersonId(person);
 		if (user==null) {
-			throw new Exception("no existe un usuario con esa cedula.");
+			throw new BusinessException("no existe un usuario con esa cedula.");
 		}
 		if(!user.getRole().equals("guest")) {
-			throw new Exception("la cedula no pertenece a un invitado.");
+			throw new BusinessException("la cedula no pertenece a un invitado.");
 		}
 		Guest guest = guestPort.findByUserId(user);
 		if (guest==null) {
-			throw new Exception("no existe un invitado con esa cedula.");
+			throw new BusinessException("no existe un invitado con esa cedula.");
 		}
 		if(guest.isStatus()) {
-			throw new Exception("invitado  esta activo.");
+			throw new BusinessException("invitado  esta activo.");
 		}
 		if(guest.getPartner().getType().equals("vip")){
 			guest.setStatus(true);
@@ -128,7 +128,7 @@ public class PartnerService {
 		}
 		List<Guest> guests = guestPort.findByPartnerIdAndStatusActive(guest.getPartner());
 		if(guests.size()==3) {
-			throw new Exception("no puede activar mas invitados");
+			throw new BusinessException("no puede activar mas invitados");
 		}
 		guest.setStatus(true);
 		guestPort.save(guest);
@@ -138,21 +138,21 @@ public class PartnerService {
 	public void inActivateGuest(Person person) throws Exception {
 		person = personPort.findByDocument(person.getDocument());
 		if (person==null) {
-			throw new Exception("no existe la persona con esa cedula.");
+			throw new BusinessException("no existe la persona con esa cedula.");
 		}
 		User user = userPort.findByPersonId(person);
 		if (user==null) {
-			throw new Exception("no existe un usuario con esa cedula.");
+			throw new BusinessException("no existe un usuario con esa cedula.");
 		}
 		if(!user.getRole().equals("guest")) {
-			throw new Exception("la cedula no pertenece a un invitado.");
+			throw new BusinessException("la cedula no pertenece a un invitado.");
 		}
 		Guest guest = guestPort.findByUserId(user);
 		if (guest==null) {
-			throw new Exception("no existe un invitado con esa cedula.");
+			throw new BusinessException("no existe un invitado con esa cedula.");
 		}
 		if(!guest.isStatus()) {
-			throw new Exception("invitado no esta activo.");
+			throw new BusinessException("invitado no esta activo.");
 		}
 		
 		guest.setStatus(false);

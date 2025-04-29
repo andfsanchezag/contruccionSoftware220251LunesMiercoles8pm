@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import app.Exceptions.BusinessException;
 import app.domain.models.Guest;
 import app.domain.models.InvoiceDetail;
 import app.domain.models.InvoiceHeader;
@@ -77,11 +78,26 @@ public class GuestService {
 		} 	
 	}
 	
-	public void convertToPartner(Guest guest) throws Exception {
+	public void convertToPartner(Person person) throws Exception {
+		person = personPort.findByDocument(person.getDocument());
+		if (person==null) {
+			throw new Exception("no existe la persona con esa cedula.");
+		}
+		User user = userPort.findByPersonId(person);
+		if (user==null) {
+			throw new Exception("no existe un usuario con esa cedula.");
+		}
+		if(!user.getRole().equals("guest")) {
+			throw new Exception("la cedula no pertenece a un invitado.");
+		}
+		Guest guest = guestPort.findByUserId(user);
+		if (guest==null) {
+			throw new Exception("no existe un invitado con esa cedula.");
+		}
 		List<InvoiceHeader> invoices = invoiceHeaderPort.findByPersonId(guest);
 		for(InvoiceHeader invoice : invoices) {
 			if(invoice.isStatus()) {
-				throw new Exception("el invitado tiene facturas pendientes a su nombre");
+				throw new BusinessException("el invitado tiene facturas pendientes a su nombre");
 			}
 		}
 		guest.setStatus(false);
@@ -97,6 +113,7 @@ public class GuestService {
 		partner.setAmount(50000);
 		partner.setType("regular");
 		partner.setDateCreated(new Timestamp(System.currentTimeMillis()));
+		userPort.saveUser(partner);
 		guestPort.save(guest);
 		partnerPort.savePartner(partner);	
 		

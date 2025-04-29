@@ -30,7 +30,6 @@ public class PartnerEntity {
     private Timestamp dateCreated;
 	@JoinColumn(name="user_id")
 	@OneToOne
-	
     private UserEntity userId;
 	public long getPartnerId() {
 		return partnerId;

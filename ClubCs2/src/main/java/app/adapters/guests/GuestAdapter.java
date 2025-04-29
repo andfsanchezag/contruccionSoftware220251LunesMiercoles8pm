@@ -50,6 +50,7 @@ public class GuestAdapter implements GuestPort {
 		guestEntity.setStatus(guest.isStatus());
 		guestEntity.setUserId(userAdapter(guest));
 		guestEntity.setPartnerId(partnerAdapter(guest.getPartner()));
+		guestEntity.setGuestId(guest.getGuestId());
 		return guestEntity;
 	}
 
