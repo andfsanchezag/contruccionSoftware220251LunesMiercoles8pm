@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.Exceptions.BusinessException;
 import app.Exceptions.InputsException;
+import app.Exceptions.NotFoundException;
 import app.adapters.rest.request.GuestRequest;
 import app.adapters.rest.utils.PartnerValidator;
 import app.adapters.rest.utils.PersonValidator;
@@ -71,7 +72,9 @@ public class PartnerController {
 			person.setDocument(document);
 			partnerService.activateGuest(person);
 			return new ResponseEntity("se ha activado el invitado", HttpStatus.ACCEPTED);
-		} catch (BusinessException be) {
+		}catch (NotFoundException NFe) {
+			return new ResponseEntity(NFe.getMessage(), HttpStatus.NOT_FOUND);
+		}  catch (BusinessException be) {
 			return new ResponseEntity(be.getMessage(), HttpStatus.CONFLICT);
 		} catch (Exception e) {
 			return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

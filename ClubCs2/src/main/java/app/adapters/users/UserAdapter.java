@@ -72,6 +72,7 @@ public class UserAdapter implements UserPort {
 		PersonEntity personEntity = personAdapter(user);
 		UserEntity userEntity = new UserEntity();
 		userEntity.setPersonId(personEntity);
+		userEntity.setUserId(user.getUserId());
 		userEntity.setUserName(user.getUserName());
 		userEntity.setPassword(user.getPassword());
 		userEntity.setRole(user.getRole());

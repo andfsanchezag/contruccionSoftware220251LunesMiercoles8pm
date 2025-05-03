@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.Exceptions.BusinessException;
+import app.Exceptions.NotFoundException;
 import app.domain.models.Guest;
 import app.domain.models.InvoiceDetail;
 import app.domain.models.InvoiceHeader;
@@ -105,11 +106,11 @@ public class PartnerService {
 	public void activateGuest(Person person) throws Exception {
 		person = personPort.findByDocument(person.getDocument());
 		if (person==null) {
-			throw new BusinessException("no existe la persona con esa cedula.");
+			throw new NotFoundException("no existe la persona con esa cedula.");
 		}
 		User user = userPort.findByPersonId(person);
 		if (user==null) {
-			throw new BusinessException("no existe un usuario con esa cedula.");
+			throw new NotFoundException("no existe un usuario con esa cedula.");
 		}
 		if(!user.getRole().equals("guest")) {
 			throw new BusinessException("la cedula no pertenece a un invitado.");

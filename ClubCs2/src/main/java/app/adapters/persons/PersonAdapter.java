@@ -37,6 +37,9 @@ public class PersonAdapter implements PersonPort {
 	}
 
 	private Person personAdapter(PersonEntity personEntity) {
+		if(personEntity==null) {
+			return null;
+		}
 		Person person= new Person();
 		person.setPersonId(personEntity.getPersonId());
 		person.setDocument(personEntity.getDocument());
