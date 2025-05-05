@@ -1,5 +1,8 @@
 package app.adapters.users;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +28,17 @@ public class UserAdapter implements UserPort {
 	public boolean existUserName(String userName) {
 		return userRepository.existsByUserName(userName);
 	}
+	
+	@Override
+	public List<User> getAll() {
+		List<UserEntity> usersEntity = userRepository.findAll();
+		List<User> users = new ArrayList<User>();
+		for(UserEntity userEntity : usersEntity) {
+			users.add(userAdapter(userEntity));
+		}
+		return users;
+	}
+
 
 	@Override
 	public void saveUser(User user) {
@@ -88,5 +102,6 @@ public class UserAdapter implements UserPort {
 		return personEntity;
 	}
 
+	
 	
 }

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.Exceptions.BusinessException;
+import app.Exceptions.NotFoundException;
 import app.domain.models.InvoiceHeader;
 import app.domain.models.Partner;
 import app.domain.models.Person;
@@ -109,5 +110,25 @@ public class AdminService {
         }
     
     }
+
+	public List<User> getUsers() throws Exception {
+		List<User> users = userPort.getAll();
+		if(users.isEmpty()) {
+			throw new NotFoundException("no se encontraron usuarios"); 
+		}
+		return users;
+	}
+
+	public User getUser(long document)throws Exception {
+		Person person=personPort.findByDocument(document);
+        if (person==null){
+            throw new NotFoundException("no existe una persona con esa cedula");
+        }
+        User user=userPort.findByPersonId(person);
+        if (user==null){
+            throw new NotFoundException("no existe un usuario asociado");
+        }
+		return user;
+	}
 
 }
